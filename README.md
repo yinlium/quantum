@@ -168,9 +168,29 @@ quantum/
 ├── tests/            validation against NumPy/analytic oracles
 ├── run_all.py        regenerate every figure
 ├── pyproject.toml
-└── Cirq/             upstream Cirq source checkout (reference only)
+├── LICENSE
+└── README.md
 ```
+
+Two paths exist locally but are **not tracked** (see [`.gitignore`](./.gitignore)):
+`.venv/`, recreated by the setup command above, and `Cirq/`, a local checkout of
+the upstream Cirq source kept purely for reading. Nothing in this repository
+imports from it — Cirq comes from PyPI.
 
 Detailed physics write-ups live in
 [`entanglement/THEORY_AND_REPRODUCTION.md`](./entanglement/THEORY_AND_REPRODUCTION.md)
 and [`manybody/README.md`](./manybody/README.md).
+
+---
+
+## License
+
+Released under the [MIT License](./LICENSE).
+
+This is an independent reproduction. The underlying experiments and theory are
+the work of Y. Mei, Y. Li, H. Nguyen, P. R. Berman, and A. Kuzmich; please cite
+[*Phys. Rev. Lett.* **128**, 123601 (2022)](https://doi.org/10.1103/PhysRevLett.128.123601)
+and [*Phys. Rev. A* **106**, L051701 (2022)](https://doi.org/10.1103/PhysRevA.106.L051701)
+rather than this code. [Cirq](https://github.com/quantumlib/Cirq) is licensed
+separately under Apache-2.0.
+
