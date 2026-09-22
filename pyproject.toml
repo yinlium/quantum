@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rydberg-cirq"
+version = "0.1.0"
+description = "Google Cirq reproductions of trapped Rydberg ensemble experiments (PRL 128 123601, PRA 106 L051701)"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "cirq-core>=1.4",
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "matplotlib>=3.7",
+    "sympy>=1.12",
+    "networkx>=3.0",
+]
+
+[project.optional-dependencies]
+mps = ["quimb>=1.7", "opt_einsum>=3.3"]
+dev = ["pytest>=7.0"]
+
+[tool.setuptools]
+packages = ["rydberg_cirq"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = ["ignore::DeprecationWarning"]
