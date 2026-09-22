@@ -1,4 +1,4 @@
-# Dynamics of Collective-Dephasing-Induced Multi-Atom Entanglement
+﻿# Dynamics of Collective-Dephasing-Induced Multi-Atom Entanglement
 
 **Reference:**  
 Y. Li, Y. Mei, H. Nguyen, P. R. Berman, and A. Kuzmich  
@@ -72,7 +72,7 @@ $$\hat{U}(T_s) = \exp(-i \hat{H}_c T_s / \hbar) = \prod_{\mu < \nu} \left[ 1 + \
 
 The pairwise interaction-induced phase shift accumulated during storage time $T_s$ is:
 $$\Phi_{\mu\nu} = \kappa_{\mu\nu} T_s = \left[ \frac{\delta}{2} - \text{sgn}(\delta)\sqrt{(\delta/2)^2 + V_{\mu\nu}^2} \right] \frac{T_s}{\hbar}$$
-where $V_{\mu\nu} = C_3 / R_{\mu\nu}^3$ (dipole-dipole interaction) and $\delta = E_{r1} + E_{r2} - 2E_r$ is the Förster energy defect. In the van der Waals asymptotic regime, $\Phi_{\mu\nu} \approx \frac{C_6}{R_{\mu\nu}^6} T_s$.
+where $V_{\mu\nu} = C_3 / R_{\mu\nu}^3$ (dipole-dipole interaction) and $\delta = E_{r1} + E_{r2} - 2E_r$ is the FÃ¶rster energy defect. In the van der Waals asymptotic regime, $\Phi_{\mu\nu} \approx \frac{C_6}{R_{\mu\nu}^6} T_s$.
 
 **Crucial Selective Property:**
 * For $m = 0$: $\hat{H}_c |0\rangle = 0$.
@@ -151,10 +151,10 @@ $$X_m = \frac{(N - m)^2 + 3(N - m)}{N^2} \left( \frac{X_2 - 2/N^2}{1 - 1/N - 2/N
 In the large-$N$ limit ($N \gg m$):
 $$X_m \approx X_2^{2m-3}, \quad Y_m \approx Y_2^{m-1}$$
 
-This completes the analytical proof. The accuracy of this derivation was independently verified across atom numbers $N = 1$ to $20$ using Google Cirq quantum circuits ([`verify_ansatz_cirq.py`](file:///Users/yinliyl/quantum/entanglement/verify_ansatz_cirq.py)):
+This completes the analytical proof. The accuracy of this derivation was independently verified across atom numbers $N = 1$ to $20$ using Google Cirq quantum circuits ([`verify_ansatz_cirq.py`](./verify_ansatz_cirq.py)):
 * **Microscopic Baselines ($N=1, 2$):** Correctly reflects that for $N=1$ no pairs exist, and for $N=2$ the interaction is a global phase with zero spectators ($m-2=0$), so $X_2=0.5, Y_2=0.5$ are constant in time.
 * **Mesoscopic Scaling ($N=3$ to $20$):** Spectator-induced dephasing activates at $N \ge 3$. Across all $N \in [3, 20]$, gate-level Cirq simulations verify the ansatz with $< 2.5\%$ maximum residual error across large $N$.
-* **Asymptotic Background:** Cirq fully dephased circuits confirm that the background vanishes strictly as $\mathcal{O}(2/N^2)$ and $\mathcal{O}(1/N)$, reproducing Fig.~S.2 and generating the comprehensive scaling study ([`cirq_verified_ansatz_N1_to_20.png`](file:///Users/yinliyl/quantum/entanglement/cirq_verified_ansatz_N1_to_20.png)).
+* **Asymptotic Background:** Cirq fully dephased circuits confirm that the background vanishes strictly as $\mathcal{O}(2/N^2)$ and $\mathcal{O}(1/N)$, reproducing Fig.~S.2 and generating the comprehensive scaling study ([`cirq_verified_ansatz_N1_to_20.png`](./cirq_verified_ansatz_N1_to_20.png)).
 
 ---
 
@@ -206,22 +206,22 @@ For macroscopic ensembles where $2^N = 2^{270} \approx 10^{81}$ is impossible fo
 
 | File | Description |
 | :--- | :--- |
-| [`cirq_collective_dephasing.py`](file:///Users/yinliyl/quantum/entanglement/cirq_collective_dephasing.py) | **Exact CPTP Kraus-Channel Density-Matrix Simulation (`CollectiveDephasingChannel`):** Replaces the classical Strang master-equation solver with a genuine `cirq.DensityMatrixSimulator` circuit, proving concurrence rises from $C(0)=0$ and Dicke purity $\mathcal{P}_{\text{Dicke}} \to 1$. Generates [`cirq_collective_dephasing.png`](file:///Users/yinliyl/quantum/entanglement/cirq_collective_dephasing.png). |
-| [`cirq_g2_fig2_reproduction.py`](file:///Users/yinliyl/quantum/entanglement/cirq_g2_fig2_reproduction.py) | **Parametrized Cirq Circuit Reproduction of Fig. 2 ($g^{(2)}(T_s)$):** Uses `sympy.Symbol` + `cirq.Linspace` sweeps over `PairwisePhaseGate` circuits to reproduce both the short ($n=50$) and long ($n=40$) cloud curves. Generates [`cirq_g2_fig2_reproduction.png`](file:///Users/yinliyl/quantum/entanglement/cirq_g2_fig2_reproduction.png). |
-| [`cirq_g2_shot_noise.py`](file:///Users/yinliyl/quantum/entanglement/cirq_g2_shot_noise.py) | **Finite-Statistics HBT Coincidence Sampling (`sim.run(repetitions=...)`):** Computes $g^{(2)}(T_s)$ directly from sampled multi-excitation bitstrings with $1/\sqrt{M_{\text{shots}}}$ error bars. Generates [`cirq_g2_shot_noise.png`](file:///Users/yinliyl/quantum/entanglement/cirq_g2_shot_noise.png). |
-| [`cirq_ramsey_metrology.py`](file:///Users/yinliyl/quantum/entanglement/cirq_ramsey_metrology.py) | **Parametrized Ramsey Interferometer & Quantum Fisher Information:** Demonstrates that the dephased spin wave and $|W\rangle$ state surpass the Standard Quantum Limit ($F_Q / N > 1$). Generates [`cirq_ramsey_metrology.png`](file:///Users/yinliyl/quantum/entanglement/cirq_ramsey_metrology.png). |
-| [`verify_ansatz_cirq.py`](file:///Users/yinliyl/quantum/entanglement/verify_ansatz_cirq.py) | **Direct Cirq Quantum Circuit Verification of the Paper's Ansatz (Eqs. S.7-S.8) for $N=1$ to $20$:** Simulates exact statevectors $|m=2, 3, 4\rangle$ under CZPowGates and compares exact quantum expectation values against ansatz predictions across system sizes $N=1$ to $20$. |
-| [`cirq_verified_ansatz_N1_to_20.png`](file:///Users/yinliyl/quantum/entanglement/cirq_verified_ansatz_N1_to_20.png) | **Master 4-Panel Verification Plot across $N = 1$ to $20$:** Panel (a) $X_m(t)$, Panel (b) $Y_m(t)$, Panel (c) Error scaling $< 2.5\%$, Panel (d) Vanishing background $2/N^2$ and $1/N$. |
-| [`cirq_verified_ansatz_figS2.png`](file:///Users/yinliyl/quantum/entanglement/cirq_verified_ansatz_figS2.png) | **Cirq Quantum-Circuit Reproduction of Fig. S.2:** Side-by-side plot comparing exact Cirq quantum circuits vs. paper ansatz for $X_3, X_4$ and $Y_3, Y_4$. |
-| [`reproduce_original_notebook.py`](file:///Users/yinliyl/quantum/entanglement/reproduce_original_notebook.py) | Full implementation of the author's original Jupyter notebook with fine-structure defect $\delta$, dipole $C_3$, $\sin^2(\frac{\pi}{2} e^{-r^2/\sigma^2})$ radial PDF, and $w_z = L_z/2$. |
-| [`author_notebook_fig2_reproduction.png`](file:///Users/yinliyl/quantum/entanglement/author_notebook_fig2_reproduction.png) | High-resolution plot generated directly from the author's notebook algorithm against experiment. |
-| [`cirq_fig2_reproduction.png`](file:///Users/yinliyl/quantum/entanglement/cirq_fig2_reproduction.png) | Reproduction plot of Fig. 2 generated via Cirq quantum controlled-phase gate model vs. experiment. |
-| [`reproduce_paper_exact.py`](file:///Users/yinliyl/quantum/entanglement/reproduce_paper_exact.py) | Full Monte Carlo simulation of $N = 270$ atoms reproducing Fig. 2 and validating against Cirq controlled-phase circuits. |
-| [`reproduce_paper_cirq.py`](file:///Users/yinliyl/quantum/entanglement/reproduce_paper_cirq.py) | Cirq simulation testing microscopic $N=6$ vdW cloud and logarithmic-encoded $N=100, 1000$ Dicke dynamics. |
-| [`simulation_cirq_compressed.py`](file:///Users/yinliyl/quantum/entanglement/simulation_cirq_compressed.py) | Cirq circuit mapping $(N+1)$ Dicke states onto $k = \lceil \log_2(N+1) \rceil$ qubits. |
-| [`simulation_cirq_direct.py`](file:///Users/yinliyl/quantum/entanglement/simulation_cirq_direct.py) | Cirq $N$-qubit circuit simulation using stochastic quantum trajectory ensembles. |
-| [`simulation_dicke.py`](file:///Users/yinliyl/quantum/entanglement/simulation_dicke.py) | High-performance Strang operator-splitting master equation solver. |
-| [`metrics.py`](file:///Users/yinliyl/quantum/entanglement/metrics.py) | Calculation of concurrence $C(\rho_{12})$, Wineland parameter $\xi_R^2$, and Quantum Fisher Information. |
-| [`paper_exact_fig2_reproduction.png`](file:///Users/yinliyl/quantum/entanglement/paper_exact_fig2_reproduction.png) | Reproduction plot matching Fig. 2 of the main text. |
-| [`rydberg_spinwave_entanglement.png`](file:///Users/yinliyl/quantum/entanglement/rydberg_spinwave_entanglement.png) | Multi-panel plot showing universal concurrence scaling, $g^{(2)}(t)$, Dicke purity, and QFI. |
-| [`equations_sheet.png`](file:///Users/yinliyl/quantum/entanglement/equations_sheet.png) | High-resolution publication-quality render of the mathematical equations. |
+| [`cirq_collective_dephasing.py`](./cirq_collective_dephasing.py) | **Exact CPTP Kraus-Channel Density-Matrix Simulation (`CollectiveDephasingChannel`):** Replaces the classical Strang master-equation solver with a genuine `cirq.DensityMatrixSimulator` circuit, proving concurrence rises from $C(0)=0$ and Dicke purity $\mathcal{P}_{\text{Dicke}} \to 1$. Generates [`cirq_collective_dephasing.png`](./cirq_collective_dephasing.png). |
+| [`cirq_g2_fig2_reproduction.py`](./cirq_g2_fig2_reproduction.py) | **Parametrized Cirq Circuit Reproduction of Fig. 2 ($g^{(2)}(T_s)$):** Uses `sympy.Symbol` + `cirq.Linspace` sweeps over `PairwisePhaseGate` circuits to reproduce both the short ($n=50$) and long ($n=40$) cloud curves. Generates [`cirq_g2_fig2_reproduction.png`](./cirq_g2_fig2_reproduction.png). |
+| [`cirq_g2_shot_noise.py`](./cirq_g2_shot_noise.py) | **Finite-Statistics HBT Coincidence Sampling (`sim.run(repetitions=...)`):** Computes $g^{(2)}(T_s)$ directly from sampled multi-excitation bitstrings with $1/\sqrt{M_{\text{shots}}}$ error bars. Generates [`cirq_g2_shot_noise.png`](./cirq_g2_shot_noise.png). |
+| [`cirq_ramsey_metrology.py`](./cirq_ramsey_metrology.py) | **Parametrized Ramsey Interferometer & Quantum Fisher Information:** Demonstrates that the dephased spin wave and $|W\rangle$ state surpass the Standard Quantum Limit ($F_Q / N > 1$). Generates [`cirq_ramsey_metrology.png`](./cirq_ramsey_metrology.png). |
+| [`verify_ansatz_cirq.py`](./verify_ansatz_cirq.py) | **Direct Cirq Quantum Circuit Verification of the Paper's Ansatz (Eqs. S.7-S.8) for $N=1$ to $20$:** Simulates exact statevectors $|m=2, 3, 4\rangle$ under CZPowGates and compares exact quantum expectation values against ansatz predictions across system sizes $N=1$ to $20$. |
+| [`cirq_verified_ansatz_N1_to_20.png`](./cirq_verified_ansatz_N1_to_20.png) | **Master 4-Panel Verification Plot across $N = 1$ to $20$:** Panel (a) $X_m(t)$, Panel (b) $Y_m(t)$, Panel (c) Error scaling $< 2.5\%$, Panel (d) Vanishing background $2/N^2$ and $1/N$. |
+| [`cirq_verified_ansatz_figS2.png`](./cirq_verified_ansatz_figS2.png) | **Cirq Quantum-Circuit Reproduction of Fig. S.2:** Side-by-side plot comparing exact Cirq quantum circuits vs. paper ansatz for $X_3, X_4$ and $Y_3, Y_4$. |
+| [`reproduce_original_notebook.py`](./reproduce_original_notebook.py) | Full implementation of the author's original Jupyter notebook with fine-structure defect $\delta$, dipole $C_3$, $\sin^2(\frac{\pi}{2} e^{-r^2/\sigma^2})$ radial PDF, and $w_z = L_z/2$. |
+| [`author_notebook_fig2_reproduction.png`](./author_notebook_fig2_reproduction.png) | High-resolution plot generated directly from the author's notebook algorithm against experiment. |
+| [`cirq_fig2_reproduction.png`](./cirq_fig2_reproduction.png) | Reproduction plot of Fig. 2 generated via Cirq quantum controlled-phase gate model vs. experiment. |
+| [`reproduce_paper_exact.py`](./reproduce_paper_exact.py) | Full Monte Carlo simulation of $N = 270$ atoms reproducing Fig. 2 and validating against Cirq controlled-phase circuits. |
+| [`reproduce_paper_cirq.py`](./reproduce_paper_cirq.py) | Cirq simulation testing microscopic $N=6$ vdW cloud and logarithmic-encoded $N=100, 1000$ Dicke dynamics. |
+| [`simulation_cirq_compressed.py`](./simulation_cirq_compressed.py) | Cirq circuit mapping $(N+1)$ Dicke states onto $k = \lceil \log_2(N+1) \rceil$ qubits. |
+| [`simulation_cirq_direct.py`](./simulation_cirq_direct.py) | Cirq $N$-qubit circuit simulation using stochastic quantum trajectory ensembles. |
+| [`simulation_dicke.py`](./simulation_dicke.py) | High-performance Strang operator-splitting master equation solver. |
+| [`metrics.py`](./metrics.py) | Calculation of concurrence $C(\rho_{12})$, Wineland parameter $\xi_R^2$, and Quantum Fisher Information. |
+| [`paper_exact_fig2_reproduction.png`](./paper_exact_fig2_reproduction.png) | Reproduction plot matching Fig. 2 of the main text. |
+| [`rydberg_spinwave_entanglement.png`](./rydberg_spinwave_entanglement.png) | Multi-panel plot showing universal concurrence scaling, $g^{(2)}(t)$, Dicke purity, and QFI. |
+| [`equations_sheet.png`](./equations_sheet.png) | High-resolution publication-quality render of the mathematical equations. |

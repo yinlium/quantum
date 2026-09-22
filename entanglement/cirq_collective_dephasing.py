@@ -90,7 +90,7 @@ Cirq APIs showcased
 
 Run
 ---
-    /Users/yinliyl/quantum/.venv/bin/python entanglement/cirq_collective_dephasing.py
+    .venv/bin/python entanglement/cirq_collective_dephasing.py
 """
 
 from __future__ import annotations

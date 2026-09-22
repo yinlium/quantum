@@ -29,7 +29,7 @@ This directory is dedicated to the **trapped collective Rydberg superatom qubit*
 
 ## 3. Running All Simulations
 
-From the repository root (`/Users/yinliyl/quantum`):
+From the repository root:
 
 ```bash
 .venv/bin/python run_all.py --only manybody
