@@ -2,6 +2,8 @@
 Renders the complete theoretical formulation into a publication-quality PNG image.
 """
 
+import os
+
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -51,5 +53,6 @@ for x, y, text, size, is_bold, color in lines:
     weight = 'bold' if is_bold else 'normal'
     ax.text(x, y, text, fontsize=size, fontweight=weight, color=color, va='top', transform=ax.transAxes)
 
-plt.savefig('/Users/yinliyl/quantum/entanglement/equations_sheet.png', bbox_inches='tight', facecolor='white', dpi=220)
+script_dir = os.path.dirname(os.path.abspath(__file__))
+plt.savefig(os.path.join(script_dir, 'equations_sheet.png'), bbox_inches='tight', facecolor='white', dpi=220)
 print('equations_sheet.png generated successfully!')
