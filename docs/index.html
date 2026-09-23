@@ -54,6 +54,7 @@
   .card h3{font-size:1.02rem; margin:0; line-height:1.35;}
   .card p.desc{font-size:.88rem; color:var(--text-dim); margin:0; flex:1;}
   .card .actions{display:flex; gap:14px; margin-top:6px; font-size:.85rem; font-weight:600;}
+  .private-note{color:var(--text-dim); font-weight:500; font-style:italic;}
 
   .misc-note{
     background:var(--bg-alt); border:1px solid var(--border); border-radius:10px;
@@ -70,8 +71,8 @@
   <header class="hero">
     <h1>Yin Li</h1>
     <p class="tagline">PhD Physicist — neutral-atom quantum computing, Rydberg-atom quantum optics, and collective-qubit control.
-      Below: gate-level <a href="https://quantumai.google/cirq" target="_blank" rel="noopener">Google Cirq</a> reproductions of two
-      published experiments, plus the original research code behind four more.</p>
+      Original research code for three published papers below, plus two more reproduced gate-level in
+      <a href="https://quantumai.google/cirq" target="_blank" rel="noopener">Google Cirq</a> in a private companion repo.</p>
     <div class="links">
       <a href="https://github.com/yinlium/quantum" target="_blank" rel="noopener">Repository ↗</a>
       <a href="https://scholar.google.com/citations?user=H6cr3ZMAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar ↗</a>
@@ -89,7 +90,8 @@
     <h2>Cirq reproductions</h2>
     <p class="lede">Full from-scratch reimplementations built on a shared Cirq library — custom gates, exact Kraus
       channels, a device model, a noise model derived from real T1/T2, and compiler transformer passes — validated
-      against NumPy/analytic oracles by an 70+ test pytest suite.</p>
+      against NumPy/analytic oracles by a 70+ test pytest suite. Code kept in a private repository; happy to walk
+      through it on request.</p>
     <div class="grid">
 
       <div class="card">
@@ -99,7 +101,7 @@
           <h3>Trapped Alkali-Metal Rydberg Qubit</h3>
           <p class="desc">Collective √N Rabi oscillations of a Rydberg superatom, magic-wavelength lattice trapping, and dynamical decoupling.</p>
           <div class="actions">
-            <a href="https://github.com/yinlium/quantum/tree/main/manybody" target="_blank" rel="noopener">Code →</a>
+            <span class="private-note">Code: private repo</span>
             <a href="https://doi.org/10.1103/PhysRevLett.128.123601" target="_blank" rel="noopener">Paper →</a>
           </div>
         </div>
@@ -112,7 +114,7 @@
           <h3>Dynamics of Collective-Dephasing-Induced Multiatom Entanglement</h3>
           <p class="desc">Interaction-induced dephasing converts an unentangled spin wave into an entangled Dicke state; g⁽²⁾(Tₛ) → 0.</p>
           <div class="actions">
-            <a href="https://github.com/yinlium/quantum/tree/main/entanglement" target="_blank" rel="noopener">Code →</a>
+            <span class="private-note">Code: private repo</span>
             <a href="https://doi.org/10.1103/PhysRevA.106.L051701" target="_blank" rel="noopener">Paper →</a>
           </div>
         </div>
@@ -124,7 +126,7 @@
   <section id="original">
     <h2>Original research code</h2>
     <p class="lede">The author's original NumPy/SciPy/C++ research code behind three more papers, lightly cleaned up
-      into standalone scripts (dead cells and duplicate notebooks removed) rather than rewritten into Cirq.</p>
+      into standalone scripts (dead cells and duplicate notebooks removed) rather than rewritten into any framework.</p>
     <div class="grid">
 
       <div class="card">

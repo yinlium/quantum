@@ -38,68 +38,6 @@ class Module:
 
 #: Every executable simulation in the repo, in a sensible reading order.
 MODULES: list[Module] = [
-    # ---- Phys. Rev. Lett. 128, 123601 (2022): trapped Rydberg superatom qubit
-    Module(
-        "manybody/cirq_superatom_rabi_oscillation.py",
-        "PRL 128, 123601",
-        "Collective sqrt(N) Rabi oscillations and blockade leakage suppression",
-    ),
-    Module(
-        "manybody/cirq_dd_transformer_prl2022.py",
-        "PRL 128, 123601",
-        "@cirq.transformer dynamical-decoupling compiler pass, T2 extension",
-    ),
-    Module(
-        "manybody/cirq_device_blockade.py",
-        "PRL 128, 123601",
-        "cirq.Device enforcing the blockade radius; connectivity and leakage",
-    ),
-    Module(
-        "manybody/cirq_noise_model.py",
-        "PRL 128, 123601",
-        "cirq.NoiseModel: damped Rabi oscillations from T1/T2 decoherence",
-    ),
-    Module(
-        "manybody/cirq_transformer_pipeline.py",
-        "PRL 128, 123601",
-        "Circuit compilation report and semantics-preservation proof",
-    ),
-    Module(
-        "manybody/cirq_adiabatic_w_state.py",
-        "PRL 128, 123601",
-        "Chirped adiabatic |W> preparation vs resonant pi-pulse robustness",
-    ),
-    Module(
-        "manybody/cirq_mps_large_n.py",
-        "PRL 128, 123601",
-        "Tensor-network (MPS) simulation beyond the statevector limit",
-    ),
-    # ---- Phys. Rev. A 106, L051701 (2022): collective-dephasing entanglement
-    Module(
-        "entanglement/cirq_collective_dephasing.py",
-        "PRA 106, L051701",
-        "Density-matrix simulation: dephasing-generated entanglement, Dicke purity",
-    ),
-    Module(
-        "entanglement/cirq_g2_fig2_reproduction.py",
-        "PRA 106, L051701",
-        "Fig. 2 reproduction: g2(Ts) for the short and long clouds",
-    ),
-    Module(
-        "entanglement/cirq_g2_shot_noise.py",
-        "PRA 106, L051701",
-        "g2 from sampled photon coincidences with shot-noise error bars",
-    ),
-    Module(
-        "entanglement/cirq_ramsey_metrology.py",
-        "PRA 106, L051701",
-        "Ramsey interferometry, QFI, and beating the standard quantum limit",
-    ),
-    Module(
-        "entanglement/verify_ansatz_cirq.py",
-        "PRA 106, L051701",
-        "Gate-level Cirq verification of the Eq. (S.7)/(S.8) scaling ansatz",
-    ),
     # ---- Phys. Rev. A 108, 043713 (2023): interference bunching/antibunching
     # Original NumPy/SciPy research code, lightly cleaned up -- not a Cirq
     # reimplementation. Needs the "legacy" extra (pandas, numba, ARC).

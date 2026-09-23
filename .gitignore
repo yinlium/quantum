@@ -6,12 +6,6 @@ venv/
 env/
 
 # ---------------------------------------------------------------------------
-# Upstream Cirq source checkout (77 MB, has its own .git) - reference only.
-# Install from PyPI instead:  pip install -e .
-# ---------------------------------------------------------------------------
-Cirq/
-
-# ---------------------------------------------------------------------------
 # Python build / cache artifacts
 # ---------------------------------------------------------------------------
 __pycache__/
@@ -87,7 +81,7 @@ plasma_expansion/plasparRb_*.dat
 plasma_expansion/timoutRb_*.dat
 
 # ---------------------------------------------------------------------------
-# LaTeX build artifacts (entanglement/main.tex)
+# LaTeX build artifacts
 # ---------------------------------------------------------------------------
 *.aux
 *.bbl
