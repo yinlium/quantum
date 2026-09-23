@@ -79,6 +79,14 @@ ipython_config.py
 ._*
 
 # ---------------------------------------------------------------------------
+# plasma_expansion/ build & run output (input data in plasma_expansion/data/ is kept)
+# ---------------------------------------------------------------------------
+plasma_expansion/*.exe
+plasma_expansion/*.o
+plasma_expansion/plasparRb_*.dat
+plasma_expansion/timoutRb_*.dat
+
+# ---------------------------------------------------------------------------
 # LaTeX build artifacts (entanglement/main.tex)
 # ---------------------------------------------------------------------------
 *.aux

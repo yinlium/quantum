@@ -1,7 +1,9 @@
 # Trapped Rydberg Atomic Ensembles in Google Cirq
 
 Gate-level [Google Cirq](https://quantumai.google/cirq) reproductions of two
-experiments from the Kuzmich group, built on a shared quantum-simulation library.
+experiments from the Kuzmich group, built on a shared quantum-simulation library —
+plus the author's original research code for several other publications from the
+same group, lightly cleaned up rather than reimplemented (see below).
 
 | Paper | Physics | Directory |
 | :--- | :--- | :--- |
@@ -11,6 +13,33 @@ experiments from the Kuzmich group, built on a shared quantum-simulation library
 Everything physical is computed by a Cirq object — a circuit, custom gate, Kraus
 channel, noise model, device, transformer, or simulator. NumPy is retained only as
 an independent *oracle* to validate the Cirq layer.
+
+---
+
+## Other publications (original code, lightly cleaned up)
+
+The two directories above are full from-scratch Cirq reimplementations. The three
+below are the author's original NumPy/SciPy/C++ research code — dead cells, duplicate
+notebooks, and lab-machine-specific paths removed, turned into standalone scripts —
+but **not** rewritten into Cirq.
+
+| Paper | Physics | Directory |
+| :--- | :--- | :--- |
+| [*Phys. Rev. A* **108**, 043713 (2023)](https://doi.org/10.1103/PhysRevA.108.043713)<br>*Interference Bunching and Antibunching of Coherent Atomic Radiation Fields* | $g^{(2)}(\phi)$ for factorized/truncated collective atomic states interfering with a reference field; interaction-induced dephasing for uniform and Gaussian clouds | [`interference_bunching/`](./interference_bunching) |
+| [*Phys. Rev. Lett.* **133**, 213601 (2024)](https://doi.org/10.1103/PhysRevLett.133.213601)<br>*Dipole Moment of a Superatom* | Homodyne measurement of the collective atomic dipole moment: interference fringe visibility and $g^{(2)}_\text{max}$ vs. excitation probability and probe amplitude | [`superatom_dipole_moment/`](./superatom_dipole_moment) |
+| [*Phys. Rev. A* **97**, 043401 (2018)](https://doi.org/10.1103/PhysRevA.97.043401)<br>*Expansion of an Ultracold Rydberg Plasma*, and the author's 2019 Colby College honors thesis of the same title | Monte Carlo kinetic simulation — three-body recombination, electron-Rydberg scattering, radiative $n,l$-cascade decay, coupled to an RK2 hydrodynamic expansion | [`plasma_expansion/`](./plasma_expansion) |
+
+`interference_bunching/` and `superatom_dipole_moment/` need the optional `legacy`
+extra (`pandas`, `numba`, `ARC-Alkali-Rydberg-Calculator` — see Setup below).
+`plasma_expansion/` is C++; build it with `make` inside that directory.
+
+## Unpublished / exploratory work
+
+[`misc/`](./misc) holds cleaned-up but unpublished code from grad school: a
+Jaynes-Cummings collective-dynamics model, Rydberg dipole matrix elements for a
+biphoton-generation scheme, and Rydberg-array phase-matched scattering efficiency.
+See [`misc/README.md`](./misc/README.md) for details; polish bar is lower there since
+there's no published figure to validate against.
 
 ---
 
@@ -25,11 +54,13 @@ cd quantum
 
 python3 -m venv .venv
 .venv/bin/python -m pip install --upgrade pip
-.venv/bin/python -m pip install -e ".[mps,dev]"
+.venv/bin/python -m pip install -e ".[mps,dev,legacy]"
 ```
 
 The `mps` extra pulls in `quimb` + `opt_einsum` (needed by
-`manybody/cirq_mps_large_n.py`); `dev` pulls in `pytest`. For the core
+`manybody/cirq_mps_large_n.py`); `dev` pulls in `pytest`; `legacy` pulls in
+`pandas` + `numba` + `ARC-Alkali-Rydberg-Calculator` (needed by
+`interference_bunching/` and `superatom_dipole_moment/`). For the core Cirq
 simulations alone, `pip install -e .` is enough.
 
 Verify the install:
@@ -162,11 +193,15 @@ Consequences:
 
 ```
 quantum/
-├── rydberg_cirq/     shared Cirq library
-├── manybody/         PRL 128, 123601 reproductions + figures
-├── entanglement/     PRA 106, L051701 reproductions + figures
-├── tests/            validation against NumPy/analytic oracles
-├── run_all.py        regenerate every figure
+├── rydberg_cirq/              shared Cirq library
+├── manybody/                  PRL 128, 123601 reproductions + figures
+├── entanglement/               PRA 106, L051701 reproductions + figures
+├── interference_bunching/      PRA 108, 043713 (original code, cleaned up)
+├── superatom_dipole_moment/    PRL 133, 213601 (original code, cleaned up)
+├── plasma_expansion/           PRA 97, 043401 + honors thesis (C++)
+├── misc/                       unpublished/exploratory code
+├── tests/                      validation against NumPy/analytic oracles
+├── run_all.py                 regenerate every figure
 ├── pyproject.toml
 ├── LICENSE
 └── README.md
@@ -187,10 +222,16 @@ and [`manybody/README.md`](./manybody/README.md).
 
 Released under the [MIT License](./LICENSE).
 
-This is an independent reproduction. The underlying experiments and theory are
-the work of Y. Mei, Y. Li, H. Nguyen, P. R. Berman, and A. Kuzmich; please cite
+`manybody/` and `entanglement/` are independent reproductions of experiments by
+Y. Mei, Y. Li, H. Nguyen, P. R. Berman, and A. Kuzmich; please cite
 [*Phys. Rev. Lett.* **128**, 123601 (2022)](https://doi.org/10.1103/PhysRevLett.128.123601)
 and [*Phys. Rev. A* **106**, L051701 (2022)](https://doi.org/10.1103/PhysRevA.106.L051701)
 rather than this code. [Cirq](https://github.com/quantumlib/Cirq) is licensed
 separately under Apache-2.0.
+
+`interference_bunching/`, `superatom_dipole_moment/`, and `plasma_expansion/` are the
+author's own original research code; please cite the corresponding papers if you use
+them: [*Phys. Rev. A* **108**, 043713 (2023)](https://doi.org/10.1103/PhysRevA.108.043713),
+[*Phys. Rev. Lett.* **133**, 213601 (2024)](https://doi.org/10.1103/PhysRevLett.133.213601),
+and [*Phys. Rev. A* **97**, 043401 (2018)](https://doi.org/10.1103/PhysRevA.97.043401).
 

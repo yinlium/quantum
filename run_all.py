@@ -100,6 +100,72 @@ MODULES: list[Module] = [
         "PRA 106, L051701",
         "Gate-level Cirq verification of the Eq. (S.7)/(S.8) scaling ansatz",
     ),
+    # ---- Phys. Rev. A 108, 043713 (2023): interference bunching/antibunching
+    # Original NumPy/SciPy research code, lightly cleaned up -- not a Cirq
+    # reimplementation. Needs the "legacy" extra (pandas, numba, ARC).
+    Module(
+        "interference_bunching/factorized_state_g2.py",
+        "PRA 108, 043713",
+        "Factorized-state I(phi)/g2(phi); log-scale g2 super-bunching spike",
+    ),
+    Module(
+        "interference_bunching/truncated_state_fit.py",
+        "PRA 108, 043713",
+        "Truncated-state g2 theory fit to real phase-scan data via curve_fit",
+    ),
+    Module(
+        "interference_bunching/dephasing_g2.py",
+        "PRA 108, 043713",
+        "Interaction-induced dephasing, MC atom-position averaging (uniform/Gaussian)",
+    ),
+    Module(
+        "interference_bunching/truncated_state_theory.py",
+        "PRA 108, 043713",
+        "Truncated-state xi/phi' theory and shot-to-shot fluctuation averaging",
+    ),
+    # ---- Phys. Rev. Lett. 133, 213601 (2024): dipole moment of a superatom
+    # Original NumPy/SciPy research code, lightly cleaned up.
+    Module(
+        "superatom_dipole_moment/interaction_phase_and_g2_dynamics.py",
+        "PRL 133, 213601",
+        "MC dephasing simulation of the interaction-induced phase phi' and g2(t)",
+    ),
+    Module(
+        "superatom_dipole_moment/g2_truncated_fock_estimator.py",
+        "PRL 133, 213601",
+        "Truncated-Fock-state g2 estimator sensitivity vs mean excitation number",
+    ),
+    Module(
+        "superatom_dipole_moment/fringe_visibility_vs_pulse_width_and_probe.py",
+        "PRL 133, 213601",
+        "Interference fringe visibility fit to real phase-scan photon-count data",
+    ),
+    # ---- Unpublished / exploratory work (see misc/README.md)
+    Module(
+        "misc/jaynes_cummings/jc_theory.py",
+        "unpublished",
+        "Theory-only Lambda-system master-equation model of collective Rabi dynamics",
+    ),
+    Module(
+        "misc/jaynes_cummings/jc_data_fit.py",
+        "unpublished",
+        "Same model, Poisson-averaged over N and fit to real fluorescence data",
+    ),
+    Module(
+        "misc/biphoton/rydberg_dipole_matrix_elements.py",
+        "unpublished",
+        "Kaulakys semiclassical Rydberg dipole matrix elements for a biphoton scheme",
+    ),
+    Module(
+        "misc/rydberg_array_scattering/phase_matching_efficiency.py",
+        "unpublished",
+        "Structure-factor + Debye-Waller phase-matched forward-scattering efficiency",
+    ),
+    Module(
+        "misc/rydberg_array_scattering/dipole_matrix_elements_arc.py",
+        "unpublished",
+        "Rb87 5P3/2->nS1/2 reduced dipole matrix elements via ARC",
+    ),
 ]
 
 

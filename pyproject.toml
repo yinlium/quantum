@@ -20,6 +20,9 @@ dependencies = [
 [project.optional-dependencies]
 mps = ["quimb>=1.7", "opt_einsum>=3.3"]
 dev = ["pytest>=7.0"]
+# Needed by interference_bunching/, superatom_dipole_moment/, and misc/ -- the
+# original (non-Cirq) research scripts, lightly cleaned up rather than reimplemented.
+legacy = ["pandas>=2.0", "numba>=0.58", "ARC-Alkali-Rydberg-Calculator>=3.0"]
 
 [tool.setuptools]
 packages = ["rydberg_cirq"]
