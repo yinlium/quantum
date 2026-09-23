@@ -71,7 +71,7 @@
   <header class="hero">
     <h1>Yin Li</h1>
     <p class="tagline">PhD Physicist — neutral-atom quantum computing, Rydberg-atom quantum optics, and collective-qubit control.
-      Original research code for three published papers below, plus two more reproduced gate-level in
+      Original research code for five published papers below; two of them are also reproduced gate-level in
       <a href="https://quantumai.google/cirq" target="_blank" rel="noopener">Google Cirq</a> in a private companion repo.</p>
     <div class="links">
       <a href="https://github.com/yinlium/quantum" target="_blank" rel="noopener">Repository ↗</a>
@@ -86,48 +86,39 @@
     </div>
   </header>
 
-  <section id="cirq">
-    <h2>Cirq reproductions</h2>
-    <p class="lede">Full from-scratch reimplementations built on a shared Cirq library — custom gates, exact Kraus
-      channels, a device model, a noise model derived from real T1/T2, and compiler transformer passes — validated
-      against NumPy/analytic oracles by a 70+ test pytest suite. Code kept in a private repository; happy to walk
-      through it on request.</p>
+  <section id="original">
+    <h2>Research code</h2>
+    <p class="lede">The author's original NumPy/SciPy/C++ research code behind five papers, lightly cleaned up into
+      standalone scripts (dead cells and duplicate notebooks removed) rather than rewritten into any framework.</p>
     <div class="grid">
 
       <div class="card">
-        <img class="thumb" src="assets/manybody.jpg" alt="Collective Rabi oscillation figure">
+        <img class="thumb" src="assets/rydberg_qubit_rabi_oscillation.jpg" alt="Collective Rabi oscillation figure">
         <div class="body">
           <span class="cite">Phys. Rev. Lett. 128, 123601 (2022)</span>
           <h3>Trapped Alkali-Metal Rydberg Qubit</h3>
           <p class="desc">Collective √N Rabi oscillations of a Rydberg superatom, magic-wavelength lattice trapping, and dynamical decoupling.</p>
           <div class="actions">
-            <span class="private-note">Code: private repo</span>
+            <a href="https://github.com/yinlium/quantum/tree/main/rydberg_qubit_rabi_oscillation" target="_blank" rel="noopener">Code →</a>
             <a href="https://doi.org/10.1103/PhysRevLett.128.123601" target="_blank" rel="noopener">Paper →</a>
           </div>
+          <span class="private-note">Also reproduced gate-level in Cirq — private repo</span>
         </div>
       </div>
 
       <div class="card">
-        <img class="thumb" src="assets/entanglement.jpg" alt="Collective dephasing entanglement figure">
+        <img class="thumb" src="assets/collective_dephasing_entanglement.jpg" alt="Collective dephasing entanglement figure">
         <div class="body">
           <span class="cite">Phys. Rev. A 106, L051701 (2022)</span>
           <h3>Dynamics of Collective-Dephasing-Induced Multiatom Entanglement</h3>
           <p class="desc">Interaction-induced dephasing converts an unentangled spin wave into an entangled Dicke state; g⁽²⁾(Tₛ) → 0.</p>
           <div class="actions">
-            <span class="private-note">Code: private repo</span>
+            <a href="https://github.com/yinlium/quantum/tree/main/collective_dephasing_entanglement" target="_blank" rel="noopener">Code →</a>
             <a href="https://doi.org/10.1103/PhysRevA.106.L051701" target="_blank" rel="noopener">Paper →</a>
           </div>
+          <span class="private-note">Also reproduced gate-level in Cirq — private repo</span>
         </div>
       </div>
-
-    </div>
-  </section>
-
-  <section id="original">
-    <h2>Original research code</h2>
-    <p class="lede">The author's original NumPy/SciPy/C++ research code behind three more papers, lightly cleaned up
-      into standalone scripts (dead cells and duplicate notebooks removed) rather than rewritten into any framework.</p>
-    <div class="grid">
 
       <div class="card">
         <img class="thumb" src="assets/interference_bunching.jpg" alt="Interference bunching g2 figure">

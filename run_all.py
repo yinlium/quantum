@@ -38,6 +38,52 @@ class Module:
 
 #: Every executable simulation in the repo, in a sensible reading order.
 MODULES: list[Module] = [
+    # ---- Phys. Rev. Lett. 128, 123601 (2022): trapped Rydberg qubit
+    # Original NumPy/SciPy research code (also reproduced gate-level in Cirq
+    # in a private companion repo).
+    Module(
+        "rydberg_qubit_rabi_oscillation/rabi_fitting.py",
+        "PRL 128, 123601",
+        "Collective sqrt(N) Rabi decay fit to real retrieval-efficiency data",
+    ),
+    Module(
+        "rydberg_qubit_rabi_oscillation/effect_of_n.py",
+        "PRL 128, 123601",
+        "MC: atom-number fluctuations reduce Rabi-oscillation visibility",
+    ),
+    Module(
+        "rydberg_qubit_rabi_oscillation/mc_resonance_locating.py",
+        "PRL 128, 123601",
+        "MC model of locating a laser resonance via photon counting",
+    ),
+    Module(
+        "rydberg_qubit_rabi_oscillation/dephasing_g2_box.py",
+        "PRL 128, 123601",
+        "vdW-interaction dephasing of g2(0) vs storage time, box-shaped cloud",
+    ),
+    # ---- Phys. Rev. A 106, L051701 (2022): collective-dephasing entanglement
+    # Original NumPy/SciPy research code (also reproduced gate-level in Cirq
+    # in a private companion repo).
+    Module(
+        "collective_dephasing_entanglement/g2_storage_time_fit.py",
+        "PRA 106, L051701",
+        "vdW dephasing MC fit to real g2(Ts) data; cloud size extraction",
+    ),
+    Module(
+        "collective_dephasing_entanglement/dephasing_dynamics_and_truncation.py",
+        "PRA 106, L051701",
+        "Fock-truncation convergence and full g2(Ts) dynamics vs n",
+    ),
+    Module(
+        "collective_dephasing_entanglement/calibration_fits.py",
+        "PRA 106, L051701",
+        "Rabi-flopping, excitation-spectrum, and EIT calibration fits",
+    ),
+    Module(
+        "collective_dephasing_entanglement/entanglement_witness_p1_p2.py",
+        "PRA 106, L051701",
+        "MC P1-P2 entanglement-witness boundary vs measured coincidences",
+    ),
     # ---- Phys. Rev. A 108, 043713 (2023): interference bunching/antibunching
     # Original NumPy/SciPy research code, lightly cleaned up -- not a Cirq
     # reimplementation. Needs the "legacy" extra (pandas, numba, ARC).
