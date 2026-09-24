@@ -46,7 +46,10 @@
   .card{
     background:var(--card); border:1px solid var(--border); border-radius:12px;
     overflow:hidden; box-shadow:var(--shadow); display:flex; flex-direction:column;
+    cursor:pointer; transition:transform .15s ease, box-shadow .15s ease;
   }
+  .card:hover{transform:translateY(-2px); box-shadow:0 4px 14px rgba(0,0,0,.1);}
+  .card:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
   .card .thumb{width:100%; aspect-ratio:16/10; object-fit:cover; background:var(--bg-alt); display:block;}
   .card .thumb.placeholder{display:flex; align-items:center; justify-content:center; color:var(--text-dim); font-size:.85rem;}
   .card .body{padding:18px 20px 20px; display:flex; flex-direction:column; gap:8px; flex:1;}
@@ -54,6 +57,8 @@
   .card h3{font-size:1.02rem; margin:0; line-height:1.35;}
   .card p.desc{font-size:.88rem; color:var(--text-dim); margin:0; flex:1;}
   .card .actions{display:flex; gap:14px; margin-top:6px; font-size:.85rem; font-weight:600;}
+  .card .actions a{position:relative; z-index:1;}
+  .card .more{font-size:.8rem; color:var(--text-dim); margin-top:2px;}
   .private-note{color:var(--text-dim); font-weight:500; font-style:italic;}
 
   .misc-note{
@@ -63,6 +68,37 @@
 
   footer{padding:36px 0 60px; border-top:1px solid var(--border); color:var(--text-dim); font-size:.85rem;}
   footer a{color:var(--text-dim); text-decoration:underline;}
+
+  .modal-backdrop{
+    display:none; position:fixed; inset:0; background:rgba(0,0,0,.5);
+    align-items:flex-start; justify-content:center; padding:40px 20px; z-index:100; overflow-y:auto;
+  }
+  .modal-backdrop.open{display:flex;}
+  .modal{
+    background:var(--card); border-radius:14px; max-width:640px; width:100%;
+    box-shadow:0 20px 60px rgba(0,0,0,.35); position:relative; overflow:hidden;
+  }
+  .modal img.thumb{width:100%; aspect-ratio:16/10; object-fit:cover; display:block; background:var(--bg-alt);}
+  .modal .thumb.placeholder{aspect-ratio:16/10; display:flex; align-items:center; justify-content:center; color:var(--text-dim); background:var(--bg-alt);}
+  .modal-body{padding:24px 28px 28px;}
+  .modal-body .cite{font-size:.78rem; color:var(--accent-dim); font-weight:600; text-transform:uppercase; letter-spacing:.03em;}
+  .modal-body h2{font-size:1.3rem; margin:6px 0 10px;}
+  .modal-body p.desc{color:var(--text-dim); font-size:.95rem; margin:0 0 14px;}
+  .modal-body h4{font-size:.8rem; text-transform:uppercase; letter-spacing:.04em; color:var(--text-dim); margin:18px 0 8px;}
+  .modal-scripts{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px;}
+  .modal-scripts li{font-size:.88rem; line-height:1.45;}
+  .modal-scripts code{
+    background:var(--code); padding:1px 6px; border-radius:5px; font-size:.82rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color:var(--text);
+    overflow-wrap:anywhere;
+  }
+  .modal-actions{display:flex; gap:18px; margin-top:20px; font-size:.9rem; font-weight:600;}
+  .modal-close{
+    position:absolute; top:14px; right:14px; width:32px; height:32px; border-radius:50%;
+    border:none; background:var(--bg-alt); color:var(--text); font-size:1.2rem; line-height:1;
+    cursor:pointer; display:flex; align-items:center; justify-content:center; z-index:2;
+  }
+  .modal-close:hover{background:var(--border);}
 </style>
 </head>
 <body>
@@ -92,7 +128,7 @@
       standalone scripts (dead cells and duplicate notebooks removed) rather than rewritten into any framework.</p>
     <div class="grid">
 
-      <div class="card">
+      <div class="card" data-project="rydberg_qubit_rabi_oscillation" tabindex="0" role="button" aria-haspopup="dialog">
         <img class="thumb" src="assets/rydberg_qubit_rabi_oscillation.jpg" alt="Collective Rabi oscillation figure">
         <div class="body">
           <span class="cite">Phys. Rev. Lett. 128, 123601 (2022)</span>
@@ -103,10 +139,11 @@
             <a href="https://doi.org/10.1103/PhysRevLett.128.123601" target="_blank" rel="noopener">Paper →</a>
           </div>
           <span class="private-note">Also reproduced gate-level in Cirq — private repo</span>
+          <span class="more">Click for the 4 scripts in this directory →</span>
         </div>
       </div>
 
-      <div class="card">
+      <div class="card" data-project="collective_dephasing_entanglement" tabindex="0" role="button" aria-haspopup="dialog">
         <img class="thumb" src="assets/collective_dephasing_entanglement.jpg" alt="Collective dephasing entanglement figure">
         <div class="body">
           <span class="cite">Phys. Rev. A 106, L051701 (2022)</span>
@@ -117,10 +154,11 @@
             <a href="https://doi.org/10.1103/PhysRevA.106.L051701" target="_blank" rel="noopener">Paper →</a>
           </div>
           <span class="private-note">Also reproduced gate-level in Cirq — private repo</span>
+          <span class="more">Click for the 4 scripts in this directory →</span>
         </div>
       </div>
 
-      <div class="card">
+      <div class="card" data-project="interference_bunching" tabindex="0" role="button" aria-haspopup="dialog">
         <img class="thumb" src="assets/interference_bunching.jpg" alt="Interference bunching g2 figure">
         <div class="body">
           <span class="cite">Phys. Rev. A 108, 043713 (2023)</span>
@@ -130,10 +168,11 @@
             <a href="https://github.com/yinlium/quantum/tree/main/interference_bunching" target="_blank" rel="noopener">Code →</a>
             <a href="https://doi.org/10.1103/PhysRevA.108.043713" target="_blank" rel="noopener">Paper →</a>
           </div>
+          <span class="more">Click for the 4 scripts in this directory →</span>
         </div>
       </div>
 
-      <div class="card">
+      <div class="card" data-project="superatom_dipole_moment" tabindex="0" role="button" aria-haspopup="dialog">
         <img class="thumb" src="assets/superatom_dipole_moment.jpg" alt="Superatom dipole moment figure">
         <div class="body">
           <span class="cite">Phys. Rev. Lett. 133, 213601 (2024)</span>
@@ -143,10 +182,11 @@
             <a href="https://github.com/yinlium/quantum/tree/main/superatom_dipole_moment" target="_blank" rel="noopener">Code →</a>
             <a href="https://doi.org/10.1103/PhysRevLett.133.213601" target="_blank" rel="noopener">Paper →</a>
           </div>
+          <span class="more">Click for the 3 scripts in this directory →</span>
         </div>
       </div>
 
-      <div class="card">
+      <div class="card" data-project="plasma_expansion" tabindex="0" role="button" aria-haspopup="dialog">
         <div class="thumb placeholder">C++ · Monte Carlo</div>
         <div class="body">
           <span class="cite">Phys. Rev. A 97, 043401 (2018) &amp; Honors Thesis (2019)</span>
@@ -156,6 +196,7 @@
             <a href="https://github.com/yinlium/quantum/tree/main/plasma_expansion" target="_blank" rel="noopener">Code →</a>
             <a href="https://doi.org/10.1103/PhysRevA.97.043401" target="_blank" rel="noopener">Paper →</a>
           </div>
+          <span class="more">Click for build/run details →</span>
         </div>
       </div>
 
@@ -168,7 +209,7 @@
       validate against. Jaynes-Cummings collective dynamics, Rydberg dipole matrix elements for a
       biphoton-generation scheme, and Rydberg-array phase-matched scattering efficiency.</div>
     <div class="grid">
-      <div class="card">
+      <div class="card" data-project="misc" tabindex="0" role="button" aria-haspopup="dialog">
         <img class="thumb" src="assets/misc.jpg" alt="Rydberg array phase-matched scattering figure">
         <div class="body">
           <span class="cite">Unpublished</span>
@@ -177,6 +218,7 @@
           <div class="actions">
             <a href="https://github.com/yinlium/quantum/tree/main/misc" target="_blank" rel="noopener">Code →</a>
           </div>
+          <span class="more">Click for the 5 scripts across all three →</span>
         </div>
       </div>
     </div>
@@ -188,6 +230,137 @@
     Cirq is licensed separately under Apache-2.0.
   </footer>
 </div>
+
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+    <div id="modalMedia"></div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+  // Per-directory script breakdown, one entry per card (keyed by data-project).
+  // Kept separate from the card markup above so the card stays the short pitch
+  // and the modal is where the actual file-by-file detail lives.
+  const PROJECT_DETAILS = {
+    rydberg_qubit_rabi_oscillation: {
+      note: "Same physics also reproduced gate-level in Cirq, in a private companion repo.",
+      scripts: [
+        ["rabi_fitting.py", "Collective √N Rabi decay fit to real retrieval-efficiency data"],
+        ["effect_of_n.py", "Monte Carlo: atom-number fluctuations reduce Rabi-oscillation visibility"],
+        ["mc_resonance_locating.py", "Monte Carlo model of locating a laser resonance via photon counting"],
+        ["dephasing_g2_box.py", "van der Waals interaction dephasing of g²(0) vs. storage time, box-shaped cloud"],
+      ],
+    },
+    collective_dephasing_entanglement: {
+      note: "Same physics also reproduced gate-level in Cirq, in a private companion repo.",
+      scripts: [
+        ["g2_storage_time_fit.py", "van der Waals dephasing Monte Carlo fit to real g²(Tₛ) data; cloud-size extraction"],
+        ["dephasing_dynamics_and_truncation.py", "Fock-truncation convergence and full g²(Tₛ) dynamics vs. n"],
+        ["calibration_fits.py", "Rabi-flopping, excitation-spectrum, and EIT calibration fits"],
+        ["entanglement_witness_p1_p2.py", "Monte Carlo P1–P2 entanglement-witness boundary vs. measured coincidences"],
+      ],
+    },
+    interference_bunching: {
+      scripts: [
+        ["factorized_state_g2.py", "Factorized-state I(φ)/g²(φ); the log-scale g² super-bunching spike"],
+        ["truncated_state_fit.py", "Truncated-state g² theory fit to real phase-scan data via curve_fit"],
+        ["dephasing_g2.py", "Interaction-induced dephasing, Monte Carlo atom-position averaging (uniform/Gaussian)"],
+        ["truncated_state_theory.py", "Truncated-state ξ/φ' theory and shot-to-shot fluctuation averaging"],
+      ],
+    },
+    superatom_dipole_moment: {
+      scripts: [
+        ["interaction_phase_and_g2_dynamics.py", "Monte Carlo dephasing simulation of the interaction-induced phase φ' and g²(t)"],
+        ["g2_truncated_fock_estimator.py", "Truncated-Fock-state g² estimator sensitivity vs. mean excitation number"],
+        ["fringe_visibility_vs_pulse_width_and_probe.py", "Interference fringe visibility fit to real phase-scan photon-count data"],
+      ],
+    },
+    plasma_expansion: {
+      note: "C++, not Python — not part of the run_all.py catalogue. Build with `make` inside the directory; reads its physical parameters from named constants at the top of the source (no CLI args, inherited from the original code) and two input data files (energiesH.dat, radratesH.dat) checked into data/.",
+      scripts: [
+        ["plasma_expansion.cpp", "Monte Carlo kinetic simulation: three-body recombination (Mueller–Wolf), electron–Rydberg scattering (Mansbach–Keck), l-mixing, radiative n,l-cascade decay, RK2 hydrodynamic expansion"],
+      ],
+    },
+    misc: {
+      scripts: [
+        ["jaynes_cummings/jc_theory.py", "Theory-only Λ-system master-equation model of collective Rabi dynamics"],
+        ["jaynes_cummings/jc_data_fit.py", "Same model, Poisson-averaged over N and fit to real fluorescence data"],
+        ["biphoton/rydberg_dipole_matrix_elements.py", "Kaulakys semiclassical Rydberg dipole matrix elements for a biphoton-generation scheme"],
+        ["rydberg_array_scattering/phase_matching_efficiency.py", "Structure-factor + Debye-Waller phase-matched forward-scattering efficiency"],
+        ["rydberg_array_scattering/dipole_matrix_elements_arc.py", "Rb87 5P3/2→nS1/2 reduced dipole matrix elements via ARC"],
+      ],
+    },
+  };
+
+  const backdrop = document.getElementById("modalBackdrop");
+  const modalMedia = document.getElementById("modalMedia");
+  const modalBody = document.getElementById("modalBody");
+
+  function openModal(card) {
+    const key = card.dataset.project;
+    const detail = PROJECT_DETAILS[key];
+    if (!detail) return;
+
+    const media = card.querySelector(".thumb");
+    modalMedia.innerHTML = media.tagName === "IMG"
+      ? `<img class="thumb" src="${media.getAttribute("src")}" alt="${media.getAttribute("alt") || ""}">`
+      : `<div class="thumb placeholder">${media.textContent}</div>`;
+
+    const cite = card.querySelector(".cite").textContent;
+    const title = card.querySelector("h3").textContent;
+    const desc = card.querySelector(".desc").textContent;
+    const codeLink = card.querySelector('.actions a:first-child');
+    const paperLink = card.querySelector('.actions a[href*="doi.org"]');
+
+    const scriptsHtml = (detail.scripts || []).map(
+      ([name, d]) => `<li><code>${name}</code> — ${d}</li>`
+    ).join("");
+
+    modalBody.innerHTML = `
+      <span class="cite">${cite}</span>
+      <h2 id="modalTitle">${title}</h2>
+      <p class="desc">${desc}</p>
+      ${detail.note ? `<p class="private-note">${detail.note}</p>` : ""}
+      ${scriptsHtml ? `<h4>Scripts in this directory</h4><ul class="modal-scripts">${scriptsHtml}</ul>` : ""}
+      <div class="modal-actions">
+        ${codeLink ? `<a href="${codeLink.href}" target="_blank" rel="noopener">Code →</a>` : ""}
+        ${paperLink ? `<a href="${paperLink.href}" target="_blank" rel="noopener">Paper →</a>` : ""}
+      </div>
+    `;
+
+    backdrop.classList.add("open");
+    document.body.style.overflow = "hidden";
+    document.getElementById("modalClose").focus();
+  }
+
+  function closeModal() {
+    backdrop.classList.remove("open");
+    document.body.style.overflow = "";
+  }
+
+  document.querySelectorAll(".card[data-project]").forEach((card) => {
+    card.addEventListener("click", (e) => {
+      if (e.target.closest("a")) return; // let Code/Paper links behave normally
+      openModal(card);
+    });
+    card.addEventListener("keydown", (e) => {
+      if ((e.key === "Enter" || e.key === " ") && !e.target.closest("a")) {
+        e.preventDefault();
+        openModal(card);
+      }
+    });
+  });
+
+  document.getElementById("modalClose").addEventListener("click", closeModal);
+  backdrop.addEventListener("click", (e) => {
+    if (e.target === backdrop) closeModal();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && backdrop.classList.contains("open")) closeModal();
+  });
+</script>
 
 </body>
 </html>
