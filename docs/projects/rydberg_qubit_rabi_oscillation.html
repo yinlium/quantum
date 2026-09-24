@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trapped Alkali-Metal Rydberg Qubit — Yin Li</title>
+<meta name="description" content="Collective sqrt(N) Rabi oscillations, magic-wavelength trapping, and dynamical decoupling for a Rydberg superatom qubit — Phys. Rev. Lett. 128, 123601 (2022).">
+<link rel="stylesheet" href="../assets/project.css">
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../index.html">&larr; Back to all projects</a>
+
+  <header class="proj-hero">
+    <span class="cite">Phys. Rev. Lett. 128, 123601 (2022)</span>
+    <h1>Trapped Alkali-Metal Rydberg Qubit</h1>
+    <p class="subtitle">Y. Mei, Y. Li, H. Nguyen, P. R. Berman, A. Kuzmich</p>
+    <div class="proj-links">
+      <a href="https://github.com/yinlium/quantum/tree/main/rydberg_qubit_rabi_oscillation" target="_blank" rel="noopener">Code on GitHub &rarr;</a>
+      <a href="https://doi.org/10.1103/PhysRevLett.128.123601" target="_blank" rel="noopener">Read the paper &rarr;</a>
+    </div>
+    <p class="private-note">The same physics is also reproduced gate-level in Google Cirq, in a private companion repo.</p>
+  </header>
+
+  <section>
+    <h2>The physics</h2>
+    <p>An ensemble of ~1,000 ultracold <sup>87</sup>Rb atoms, confined within a single Rydberg blockade radius, is
+      coherently driven between the ground state |g&#10217; and a Rydberg state |r&#10217; by a two-photon field.
+      Because the blockade forbids two atoms from being excited at once, the ensemble behaves as a single
+      collective two-level system &mdash; a <em>superatom</em> qubit &mdash; and the single collective excitation
+      oscillates <em>faster</em> than a lone atom would.</p>
+    <div class="eq">&Omega;<sub>N</sub> = &radic;N &middot; &Omega;<sub>1</sub></div>
+    <p>This &radic;N enhancement is the same collective-coupling effect behind superradiance: N atoms sharing one
+      excitation couple to the driving field N&times; more strongly in amplitude than a single atom, so the
+      Rabi frequency scales as the square root of the atom number rather than the atom number itself.</p>
+    <p>Two things limit how long that oscillation survives. First, the atom number fluctuates shot to shot
+      (Poissonian loading), and since &Omega;<sub>N</sub> depends on N, that fluctuation smears the
+      ensemble-averaged oscillation into a decaying envelope even with no real decoherence. Second, once more
+      than one excitation is present, van der Waals interactions between Rydberg-excited atom pairs shift their
+      relative phase and dephase the retrieved light&rsquo;s second-order correlation g&#8317;&#178;&#8318;(0)
+      as a function of storage time. The paper addresses the first two effects directly and combats the
+      remainder with a <strong>magic-wavelength optical lattice</strong> &mdash; a trap wavelength at which
+      |g&#10217; and |r&#10217; experience equal AC Stark shifts, removing the dominant source of inhomogeneous
+      dephasing &mdash; plus a <strong>dynamical-decoupling</strong> pulse sequence, together extending the
+      qubit&rsquo;s coherence time roughly an order of magnitude over an undecoupled, non-magic trap.</p>
+  </section>
+
+  <section>
+    <h2>Results</h2>
+
+    <figure>
+      <img src="../assets/full/rydberg_qubit_rabi_oscillation/rabi_fitting.jpg" alt="Rabi oscillation fits, fixed N and Poisson-averaged N">
+      <figcaption><span class="fname">rabi_fitting.py</span> &mdash; the collective &radic;N Rabi oscillation fit
+        directly to real retrieval-efficiency-vs-pulse-width data. Left: fit at fixed atom number; right: the
+        same model Poisson-averaged over shot-to-shot atom-number fluctuations, which is what actually decays
+        the envelope in the real measurement.</figcaption>
+    </figure>
+
+    <figure>
+      <img src="../assets/full/rydberg_qubit_rabi_oscillation/effect_of_n.jpg" alt="Effect of atom-number fluctuations on Rabi visibility">
+      <figcaption><span class="fname">effect_of_n.py</span> &mdash; a Monte Carlo demonstration, isolated from any
+        real data, of exactly how much visibility is lost purely from Gaussian atom-number fluctuations, plus a
+        sinc-lineshape fit to a measured counting-efficiency scan used to calibrate the effect.</figcaption>
+    </figure>
+
+    <figure>
+      <img src="../assets/full/rydberg_qubit_rabi_oscillation/mc_resonance_locating.jpg" alt="Monte Carlo model of locating the laser resonance">
+      <figcaption><span class="fname">mc_resonance_locating.py</span> &mdash; before any of the above can be
+        measured, the two-photon laser resonance has to actually be found. This models that calibration step:
+        a sinc&#178; pulse-Fourier lineshape plus two-laser frequency jitter and Poisson shot noise, then a
+        Gaussian fit to the simulated scan &mdash; the experimental-control counterpart to the physics above.</figcaption>
+    </figure>
+
+    <figure>
+      <img src="../assets/full/rydberg_qubit_rabi_oscillation/dephasing_g2_box.jpg" alt="Van der Waals dephasing of g2(0) vs storage time">
+      <figcaption><span class="fname">dephasing_g2_box.py</span> &mdash; the second decay mechanism: van der
+        Waals interaction-induced dephasing of g&#8317;&#178;&#8318;(0) as a function of storage time, for a
+        box-shaped atomic cloud, computed via quantum-defect Rydberg energies and Kaulakys radial matrix
+        elements, with a Rydberg-blockade exclusion-radius variant compared against the reported data points.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Code</h2>
+    <ul class="script-list">
+      <li><a href="https://github.com/yinlium/quantum/blob/main/rydberg_qubit_rabi_oscillation/rabi_fitting.py" target="_blank" rel="noopener"><code>rabi_fitting.py</code></a> &mdash; collective &radic;N Rabi decay fit to real retrieval-efficiency data</li>
+      <li><a href="https://github.com/yinlium/quantum/blob/main/rydberg_qubit_rabi_oscillation/effect_of_n.py" target="_blank" rel="noopener"><code>effect_of_n.py</code></a> &mdash; Monte Carlo: atom-number fluctuations reduce Rabi-oscillation visibility</li>
+      <li><a href="https://github.com/yinlium/quantum/blob/main/rydberg_qubit_rabi_oscillation/mc_resonance_locating.py" target="_blank" rel="noopener"><code>mc_resonance_locating.py</code></a> &mdash; Monte Carlo model of locating a laser resonance via photon counting</li>
+      <li><a href="https://github.com/yinlium/quantum/blob/main/rydberg_qubit_rabi_oscillation/dephasing_g2_box.py" target="_blank" rel="noopener"><code>dephasing_g2_box.py</code></a> &mdash; van der Waals dephasing of g&#8317;&#178;&#8318;(0) vs. storage time, box-shaped cloud</li>
+    </ul>
+  </section>
+
+  <footer>
+    Released under the MIT License. Back to the
+    <a href="../index.html">full project list</a>, or the
+    <a href="https://github.com/yinlium/quantum#readme" target="_blank" rel="noopener">repository README</a>.
+  </footer>
+</div>
+</body>
+</html>

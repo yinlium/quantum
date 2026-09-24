@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dipole Moment of a Superatom — Yin Li</title>
+<meta name="description" content="Homodyne detection of the collective atomic dipole moment of a Rydberg superatom, resolving a 60-year debate about superradiance — Phys. Rev. Lett. 133, 213601 (2024).">
+<link rel="stylesheet" href="../assets/project.css">
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../index.html">&larr; Back to all projects</a>
+
+  <header class="proj-hero">
+    <span class="cite">Phys. Rev. Lett. 133, 213601 (2024)</span>
+    <h1>Dipole Moment of a Superatom</h1>
+    <p class="subtitle">B. Yang, Y. Li, S. Nie, Y. Mei, H. Nguyen, P. R. Berman, A. Kuzmich</p>
+    <div class="proj-links">
+      <a href="https://github.com/yinlium/quantum/tree/main/superatom_dipole_moment" target="_blank" rel="noopener">Code on GitHub &rarr;</a>
+      <a href="https://doi.org/10.1103/PhysRevLett.133.213601" target="_blank" rel="noopener">Read the paper &rarr;</a>
+    </div>
+  </header>
+
+  <section>
+    <h2>The physics</h2>
+    <p>There has been a 60-year debate over whether superradiant emission requires the atomic ensemble to have a
+      nonvanishing <em>average</em> dipole moment. Dicke&rsquo;s original picture (a phased array of classical
+      dipoles) says yes. But experiments built on a single shared excitation &mdash; where the ensemble&rsquo;s
+      average dipole moment is exactly zero by symmetry &mdash; are demonstrably superradiant too: the
+      phase-matched emission depends on &#10216;S<sub>+</sub>S<sub>+</sub>S<sub>&minus;</sub>S<sub>&minus;</sub>&#10217;,
+      a correlation function, not on &#10216;S<sub>+</sub>&#10217; itself. So the two pictures don&rsquo;t
+      obviously agree, and it&rsquo;s not settled which ingredient is actually doing the work.</p>
+    <p>This paper measures the collective dipole moment directly, using homodyne detection, and shows both
+      answers are partly right: the spatial phase coherence imprinted on the ensemble is what makes superradiant
+      emission possible at all, but when a nonzero dipole moment <em>is</em> present, it really does show up as
+      a genuine interference signal with a classical reference field. The trick is state preparation: a
+      two-photon retrieval pulse drives the ensemble into a superposition truncated to at most two collective
+      excitations &mdash; a &ldquo;superatom&rdquo;,</p>
+    <div class="eq">|&Psi;&#10217; = &beta;<sub>0</sub>|0&#10217; + &beta;<sub>1</sub>|1&#10217; + &beta;<sub>2</sub>|2&#10217;,&nbsp;&nbsp; S<sub>+</sub>|0&#10217;=|1&#10217;,&nbsp; S<sub>+</sub>|1&#10217;=&radic;2|2&#10217;</div>
+    <p>and the retrieved field E<sub>A</sub> &prop; &#10216;S<sub>+</sub>&#10217; is overlapped with a classical
+      probe E<sub>P</sub> of amplitude &alpha; and phase &phi; on a beamsplitter feeding a Hanbury Brown&ndash;Twiss
+      pair. The combined intensity and its second-order correlation both carry an interference term linear in the
+      dipole moment:</p>
+    <div class="eq">I<sub>T</sub>/|&alpha;|&sup2; = 1 + f&sup2;(1+2s|&beta;<sub>1</sub>|&sup2;) + 2f&xi;(&beta;<sub>0</sub>cos&phi; + &radic;s|&beta;<sub>1</sub>|&sup2;cos(&phi;+&phi;&prime;))</div>
+    <p>where f = B&radic;N|&beta;<sub>1</sub>|/|&alpha;| is the emission-to-probe amplitude ratio (the
+      cooperativity), s = 2|&beta;<sub>2</sub>|&sup2;/|&beta;<sub>1</sub>|&#8308; is the source field&rsquo;s own
+      g&#8317;&#178;&#8318;, &phi; is the phase between the probe and the n=1 Dicke state, and &phi;&prime; is the
+      interaction-induced phase shift of the n=2 component. In the simplified two-state limit (s&rarr;0) this
+      collapses to closed forms for the fringe visibility and the peak correlation:</p>
+    <div class="eq">
+      V = 2f&beta;<sub>0</sub> / (1+f&sup2;)&nbsp;&nbsp;&nbsp;&nbsp;
+      g&#8317;&#178;&#8318;<sub>max</sub> = [1+4f&sup2;&minus;4f&beta;<sub>0</sub>] / [1+f&sup2;&minus;2f&beta;<sub>0</sub>]&sup2;
+    </div>
+    <p>Experimentally, at destructive interference the n=1 and probe fields nearly cancel, isolating the
+      doubly-excited n=2 contribution and producing a pronounced super-bunching peak,
+      g&#8317;&#178;&#8318;<sub>max</sub>=11.7&plusmn;2.4; at constructive interference the combined field is
+      antibunched, g&#8317;&#178;&#8318;&asymp;0.5. The fitted interference visibility is V&asymp;0.85&plusmn;0.03,
+      and the interaction-induced phase &phi;&prime;=&minus;0.3&pi; at n=75 &mdash; negative, consistent with the
+      repulsive Rydberg interaction shifting the doubly-excited state&rsquo;s energy.</p>
+  </section>
+
+  <section>
+    <h2>Results</h2>
+
+    <figure>
+      <img src="../assets/full/superatom_dipole_moment/interaction_phase_and_g2_dynamics.jpg" alt="Interaction-induced phase and dynamical g2 vs storage time">
+      <figcaption><span class="fname">interaction_phase_and_g2_dynamics.py</span> &mdash; a Monte Carlo
+        dephasing simulation computing the interaction-induced phase &phi;&prime; and the dynamical
+        g&#8317;&#178;&#8318;=s(t) as functions of storage time, reproducing the paper&rsquo;s fixed parameters
+        at n=75, T<sub>s</sub>&asymp;0.3&nbsp;&micro;s: &phi;&prime;&asymp;&minus;0.3&pi;.</figcaption>
+    </figure>
+
+    <figure>
+      <img src="../assets/full/superatom_dipole_moment/g2_truncated_fock_estimator.jpg" alt="Truncated-Fock g2 estimator sensitivity vs mean excitation number">
+      <figcaption><span class="fname">g2_truncated_fock_estimator.py</span> &mdash; the same dephasing model
+        feeding a truncated-Fock-state g&#8317;&#178;&#8318; estimator, sweeping the mean excitation number to
+        show how sensitive the estimate is to how much of the Fock ladder is actually populated.</figcaption>
+    </figure>
+
+    <figure>
+      <img src="../assets/full/superatom_dipole_moment/fringe_visibility_vs_pulse_width_and_probe.jpg" alt="Interference fringe visibility fit vs pulse width and probe amplitude">
+      <figcaption><span class="fname">fringe_visibility_vs_pulse_width_and_probe.py</span> &mdash; sinusoidal
+        fringe fits to real phase-scan photon-count data, extracting visibility V and g&#8317;&#178;&#8318;<sub>max</sub>
+        as |&beta;<sub>1</sub>|&sup2; and the probe/emission ratio f are varied &mdash; the experimental
+        confirmation of Eq. 3a/3b above.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Code</h2>
+    <ul class="script-list">
+      <li><a href="https://github.com/yinlium/quantum/blob/main/superatom_dipole_moment/interaction_phase_and_g2_dynamics.py" target="_blank" rel="noopener"><code>interaction_phase_and_g2_dynamics.py</code></a> &mdash; Monte Carlo dephasing simulation of the interaction-induced phase &phi;&prime; and g&#8317;&#178;&#8318;(t)</li>
+      <li><a href="https://github.com/yinlium/quantum/blob/main/superatom_dipole_moment/g2_truncated_fock_estimator.py" target="_blank" rel="noopener"><code>g2_truncated_fock_estimator.py</code></a> &mdash; truncated-Fock-state g&#8317;&#178;&#8318; estimator sensitivity vs. mean excitation number</li>
+      <li><a href="https://github.com/yinlium/quantum/blob/main/superatom_dipole_moment/fringe_visibility_vs_pulse_width_and_probe.py" target="_blank" rel="noopener"><code>fringe_visibility_vs_pulse_width_and_probe.py</code></a> &mdash; interference fringe visibility fit to real phase-scan photon-count data</li>
+    </ul>
+  </section>
+
+  <footer>
+    Released under the MIT License. Back to the
+    <a href="../index.html">full project list</a>, or the
+    <a href="https://github.com/yinlium/quantum#readme" target="_blank" rel="noopener">repository README</a>.
+  </footer>
+</div>
+</body>
+</html>

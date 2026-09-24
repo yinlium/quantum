@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Expansion of an Ultracold Rydberg Plasma — Yin Li</title>
+<meta name="description" content="A Monte Carlo kinetic simulation of ultracold Rydberg plasma expansion — Phys. Rev. A 97, 043401 (2018) and a 2019 Colby College honors thesis.">
+<link rel="stylesheet" href="../assets/project.css">
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../index.html">&larr; Back to all projects</a>
+
+  <header class="proj-hero">
+    <span class="cite">Phys. Rev. A 97, 043401 (2018) &amp; Honors Thesis (2019)</span>
+    <h1>Expansion of an Ultracold Rydberg Plasma</h1>
+    <p class="subtitle">G. T. Forest, Y. Li, E. D. Ward, A. L. Goodsell, D. A. Tate &mdash; and the author&rsquo;s own 2019 Colby College honors thesis of the same title</p>
+    <div class="proj-links">
+      <a href="https://github.com/yinlium/quantum/tree/main/plasma_expansion" target="_blank" rel="noopener">Code on GitHub &rarr;</a>
+      <a href="https://doi.org/10.1103/PhysRevA.97.043401" target="_blank" rel="noopener">Read the paper &rarr;</a>
+    </div>
+  </header>
+
+  <section>
+    <h2>The physics</h2>
+    <p>Laser-cool a cloud of atoms, then photoexcite a fraction of them to high-lying Rydberg states, and the
+      cloud becomes an ultracold neutral plasma: a mix of ions, free electrons, and Rydberg atoms, all far
+      colder than any plasma occurring naturally. That coldness is exactly what makes it interesting &mdash; the
+      electron gas starts out with a Coulomb coupling parameter &Gamma;<sub>e</sub> (the ratio of Coulomb
+      interaction energy to thermal energy) that can approach or exceed 1, putting the system at the boundary
+      between a weakly-coupled classical plasma and a strongly-coupled one, a regime hard to reach any other way.</p>
+    <p>What happens next is a competition between several processes happening on comparable timescales. Electrons
+      recombine with ions in three-body collisions, releasing binding energy that reheats the electron gas
+      (disorder-induced heating counteracts this cooling too). The newly formed Rydberg atoms are struck again by
+      free electrons, scattering them among different (n,l) states and further exchanging energy with the
+      electron bath. Those Rydberg atoms also radiatively decay through the full hydrogenic cascade. All of this
+      happens while the plasma itself expands outward under its own electron thermal pressure. The central
+      question &mdash; both in the 2018 paper and in the author&rsquo;s 2019 honors thesis extending it &mdash;
+      is how the initial electron temperature and the Rydberg binding energy set that coupling strength, and
+      therefore the plasma&rsquo;s subsequent heating and hydrodynamic expansion.</p>
+  </section>
+
+  <section>
+    <h2>The simulation</h2>
+    <p>This is a from-scratch Monte Carlo kinetic model (a variant of the Robicheaux model used across this
+      subfield), written in C++ rather than Python. It has no figures of its own &mdash; it writes raw
+      time-series data files &mdash; so here is the pipeline each timestep runs:</p>
+    <div class="pipeline">
+      1. <b>Three-body recombination</b> (Mueller&ndash;Wolf rates) &mdash; electron&ndash;ion&ndash;electron
+      collisions form new Rydberg atoms and heat the electron gas with the released binding energy.<br><br>
+      2. <b>Electron&ndash;Rydberg scattering / l-mixing</b> (Mansbach&ndash;Keck rates) &mdash; free electrons
+      collide with existing Rydberg atoms, redistributing population across the (n,l) manifold and exchanging
+      further energy with the electron bath.<br><br>
+      3. <b>Radiative cascade decay</b> &mdash; each Rydberg atom decays through the full hydrogenic (n,l)
+      ladder using tabulated decay rates (<span class="fname">data/radratesH.dat</span>, ~9,000 transition
+      rates) sourced from hydrogenic state energies (<span class="fname">data/energiesH.dat</span>).<br><br>
+      4. <b>Hydrodynamic expansion</b> &mdash; the ion cloud, modeled as an expanding Gaussian, is advanced one
+      step via 2nd-order Runge&ndash;Kutta integration, driven by the electron thermal pressure computed from
+      the updated Coulomb coupling parameter.
+    </div>
+    <p>All physical run parameters &mdash; initial temperature, cloud size, density, run duration, initial
+      Rydberg fraction &mdash; are edited directly as named constants at the top of the source file rather than
+      passed as command-line arguments, a design inherited unchanged from the original code.</p>
+  </section>
+
+  <section>
+    <h2>Code</h2>
+    <ul class="script-list">
+      <li><a href="https://github.com/yinlium/quantum/blob/main/plasma_expansion/plasma_expansion.cpp" target="_blank" rel="noopener"><code>plasma_expansion.cpp</code></a> &mdash; the full Monte Carlo kinetic simulation described above</li>
+      <li><a href="https://github.com/yinlium/quantum/blob/main/plasma_expansion/Makefile" target="_blank" rel="noopener"><code>Makefile</code></a> &mdash; builds with a bare <code>make</code>, no dependencies beyond the C++ standard library</li>
+    </ul>
+  </section>
+
+  <footer>
+    Released under the MIT License. Back to the
+    <a href="../index.html">full project list</a>, or the
+    <a href="https://github.com/yinlium/quantum#readme" target="_blank" rel="noopener">repository README</a>.
+  </footer>
+</div>
+</body>
+</html>

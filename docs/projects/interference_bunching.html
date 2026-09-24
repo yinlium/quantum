@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interference Bunching and Antibunching — Yin Li</title>
+<meta name="description" content="g2(phi) for factorized and truncated collective atomic states interfering with a reference field, and interaction-induced dephasing — Phys. Rev. A 108, 043713 (2023).">
+<link rel="stylesheet" href="../assets/project.css">
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../index.html">&larr; Back to all projects</a>
+
+  <header class="proj-hero">
+    <span class="cite">Phys. Rev. A 108, 043713 (2023)</span>
+    <h1>Interference Bunching and Antibunching of Coherent Atomic Radiation Fields</h1>
+    <p class="subtitle">P. R. Berman, H. Nguyen, Y. Mei, Y. Li, A. Kuzmich</p>
+    <div class="proj-links">
+      <a href="https://github.com/yinlium/quantum/tree/main/interference_bunching" target="_blank" rel="noopener">Code on GitHub &rarr;</a>
+      <a href="https://doi.org/10.1103/PhysRevA.108.043713" target="_blank" rel="noopener">Read the paper &rarr;</a>
+    </div>
+  </header>
+
+  <section>
+    <h2>The physics</h2>
+    <p>Mix the light retrieved from the atomic ensemble, E<sub>A</sub>, with a classical reference (probe) field
+      E<sub>P</sub> of controllable phase &phi;, and look at the combined field&rsquo;s second-order correlation
+      g&#8317;&#178;&#8318;(&phi;) instead of just its intensity. This is the general theory behind that
+      measurement &mdash; it develops the g&#8317;&#178;&#8318;(&phi;) formalism for two different atomic source
+      states, then adds interaction-induced dephasing on top.</p>
+    <p>For a <strong>factorized state</strong> &mdash; every atom independently in its own superposition, no
+      entanglement &mdash; the interference term is linear in the classical field amplitude, so at destructive
+      interference (&phi;&asymp;&pi;) the mean intensity I(&phi;) is driven almost to zero while its
+      fluctuations &#10216;I&sup2;&#10217; stay finite. Since g&#8317;&#178;&#8318; = &#10216;I&sup2;&#10217;/I&sup2;,
+      that near-perfect cancellation of the mean produces a sharp super-bunching spike, visible only on a
+      log scale.</p>
+    <div class="eq">g&#8317;&#178;&#8318;(&phi;) = &#10216;E<sub>&minus;</sub>E<sub>&minus;</sub>E<sub>+</sub>E<sub>+</sub>&#10217; / |&#10216;E<sub>&minus;</sub>E<sub>+</sub>&#10217;|&sup2;</div>
+    <p>The <strong>truncated multi-excitation state</strong> generalizes this to a source state with up to four
+      excitations rather than a simple product state, adding higher-order terms that are fit directly against
+      real experimental phase- and amplitude-scan data. Finally, <strong>interaction-induced dephasing</strong>
+      &mdash; the same van der Waals mechanism as the two companion papers &mdash; is evaluated by Monte Carlo
+      atom-position averaging for two cloud geometries, a uniform sphere and a Gaussian, showing how cloud
+      shape sets the rate at which the interference signal washes out.</p>
+  </section>
+
+  <section>
+    <h2>Results</h2>
+
+    <figure>
+      <img src="../assets/full/interference_bunching/factorized_state_g2.jpg" alt="Factorized-state I(phi) and g2(phi), log-scale super-bunching spike">
+      <figcaption><span class="fname">factorized_state_g2.py</span> &mdash; the factorized-state I(&phi;) and
+        g&#8317;&#178;&#8318;(&phi;), reproducing the log-scale super-bunching spike near destructive
+        interference.</figcaption>
+    </figure>
+
+    <figure>
+      <img src="../assets/full/interference_bunching/truncated_state_fit.jpg" alt="Truncated-state theory fit to real phase-scan data">
+      <figcaption><span class="fname">truncated_state_fit.py</span> &mdash; factorized-state and
+        four-excitation-truncated-state theory fit directly to real phase- and amplitude-scan photon-count
+        data via nonlinear least squares.</figcaption>
+    </figure>
+
+    <figure>
+      <img src="../assets/full/interference_bunching/dephasing_g2.jpg" alt="Interaction-induced dephasing, Monte Carlo atom-position averaging">
+      <figcaption><span class="fname">dephasing_g2.py</span> &mdash; interaction-induced dephasing evaluated by
+        Monte Carlo atom-position averaging, for both a uniform-sphere and a Gaussian atomic cloud, using
+        quantum-defect Rydberg energies and C&#8323;/C&#8326; coefficients.</figcaption>
+    </figure>
+
+    <figure>
+      <img src="../assets/full/interference_bunching/truncated_state_theory.jpg" alt="Truncated-state xi/phi' theory and shot-to-shot fluctuation averaging">
+      <figcaption><span class="fname">truncated_state_theory.py</span> &mdash; the truncated-state &xi;/&phi;&prime;
+        phase-fluctuation theory, and how averaging over shot-to-shot amplitude and phase fluctuations further
+        shapes the observed g&#8317;&#178;&#8318;(&phi;).</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Code</h2>
+    <ul class="script-list">
+      <li><a href="https://github.com/yinlium/quantum/blob/main/interference_bunching/factorized_state_g2.py" target="_blank" rel="noopener"><code>factorized_state_g2.py</code></a> &mdash; factorized-state I(&phi;)/g&#8317;&#178;&#8318;(&phi;); the log-scale super-bunching spike</li>
+      <li><a href="https://github.com/yinlium/quantum/blob/main/interference_bunching/truncated_state_fit.py" target="_blank" rel="noopener"><code>truncated_state_fit.py</code></a> &mdash; truncated-state g&#8317;&#178;&#8318; theory fit to real phase-scan data via curve_fit</li>
+      <li><a href="https://github.com/yinlium/quantum/blob/main/interference_bunching/dephasing_g2.py" target="_blank" rel="noopener"><code>dephasing_g2.py</code></a> &mdash; interaction-induced dephasing, Monte Carlo atom-position averaging (uniform/Gaussian)</li>
+      <li><a href="https://github.com/yinlium/quantum/blob/main/interference_bunching/truncated_state_theory.py" target="_blank" rel="noopener"><code>truncated_state_theory.py</code></a> &mdash; truncated-state &xi;/&phi;&prime; theory and shot-to-shot fluctuation averaging</li>
+    </ul>
+  </section>
+
+  <footer>
+    Released under the MIT License. Back to the
+    <a href="../index.html">full project list</a>, or the
+    <a href="https://github.com/yinlium/quantum#readme" target="_blank" rel="noopener">repository README</a>.
+  </footer>
+</div>
+</body>
+</html>

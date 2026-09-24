@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exploratory / Unpublished Work — Yin Li</title>
+<meta name="description" content="Jaynes-Cummings collective dynamics, biphoton-generation dipole matrix elements, and Rydberg-array phase-matched scattering — unpublished grad-school research.">
+<link rel="stylesheet" href="../assets/project.css">
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../index.html">&larr; Back to all projects</a>
+
+  <header class="proj-hero">
+    <span class="cite">Unpublished</span>
+    <h1>Jaynes&ndash;Cummings &middot; Biphoton Generation &middot; Array Scattering</h1>
+    <p class="subtitle">Three independent lines of grad-school exploration that never became a paper</p>
+    <div class="proj-links">
+      <a href="https://github.com/yinlium/quantum/tree/main/misc" target="_blank" rel="noopener">Code on GitHub &rarr;</a>
+    </div>
+    <p class="private-note">Lower polish bar than the papers above &mdash; there's no published figure to validate against, so treat these as exploratory rather than final results.</p>
+  </header>
+
+  <section>
+    <h2>Jaynes&ndash;Cummings collective dynamics</h2>
+    <p>A &Lambda;-type three-level atomic model, collectively driven and solved via the master equation, used to
+      model superradiant-like collective Rabi dynamics in an atomic ensemble. One version is theory-only; the
+      other Poisson-averages the model over the atom-number distribution and fits it directly to real
+      time-resolved fluorescence data.</p>
+
+    <figure>
+      <img src="../assets/full/misc/misc_jc_theory.jpg" alt="Theory-only Jaynes-Cummings collective Rabi dynamics">
+      <figcaption><span class="fname">jaynes_cummings/jc_theory.py</span> &mdash; the theory-only model, no
+        data fitting.</figcaption>
+    </figure>
+
+    <figure>
+      <img src="../assets/full/misc/misc_jc_data_fit.jpg" alt="Jaynes-Cummings model fit to real fluorescence data">
+      <figcaption><span class="fname">jaynes_cummings/jc_data_fit.py</span> &mdash; the same model,
+        Poisson-averaged over atom number and fit to real fluorescence data.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Biphoton-generation dipole matrix elements</h2>
+    <p>Supporting calculations for a two-atom |g&#10217;, |p&#10217;, |r&#10217; biphoton-generation scheme:
+      Rydberg radial dipole matrix elements via the Kaulakys semiclassical formula, combined with Rb
+      quantum-defect tables, plus a van der Waals blockade-radius estimate.</p>
+
+    <figure>
+      <img src="../assets/full/misc/misc_biphoton.jpg" alt="Rydberg dipole matrix elements for a biphoton generation scheme">
+      <figcaption><span class="fname">biphoton/rydberg_dipole_matrix_elements.py</span> &mdash; radial dipole
+        matrix elements and the derived blockade radius.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Rydberg-array phase-matched scattering</h2>
+    <p>Coherent forward-scattering efficiency for an ensemble or array of atoms: a structure-factor calculation
+      combined with a Debye&ndash;Waller disorder-averaging factor, showing how phase-matching efficiency scales
+      with atom number. A companion script computes the underlying Rb 5P<sub>3/2</sub>&rarr;nS<sub>1/2</sub>
+      reduced dipole matrix elements via the ARC (Alkali Rydberg Calculator) package.</p>
+
+    <figure>
+      <img src="../assets/full/misc/misc_array_scattering.jpg" alt="Phase-matching efficiency vs atom number">
+      <figcaption><span class="fname">rydberg_array_scattering/phase_matching_efficiency.py</span> &mdash;
+        angular scattering intensity and phase-matching efficiency vs. atom number.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Code</h2>
+    <ul class="script-list">
+      <li><a href="https://github.com/yinlium/quantum/blob/main/misc/jaynes_cummings/jc_theory.py" target="_blank" rel="noopener"><code>jaynes_cummings/jc_theory.py</code></a> &mdash; theory-only &Lambda;-system master-equation model of collective Rabi dynamics</li>
+      <li><a href="https://github.com/yinlium/quantum/blob/main/misc/jaynes_cummings/jc_data_fit.py" target="_blank" rel="noopener"><code>jaynes_cummings/jc_data_fit.py</code></a> &mdash; same model, Poisson-averaged over N and fit to real fluorescence data</li>
+      <li><a href="https://github.com/yinlium/quantum/blob/main/misc/biphoton/rydberg_dipole_matrix_elements.py" target="_blank" rel="noopener"><code>biphoton/rydberg_dipole_matrix_elements.py</code></a> &mdash; Kaulakys semiclassical Rydberg dipole matrix elements for a biphoton-generation scheme</li>
+      <li><a href="https://github.com/yinlium/quantum/blob/main/misc/rydberg_array_scattering/phase_matching_efficiency.py" target="_blank" rel="noopener"><code>rydberg_array_scattering/phase_matching_efficiency.py</code></a> &mdash; structure-factor + Debye-Waller phase-matched forward-scattering efficiency</li>
+      <li><a href="https://github.com/yinlium/quantum/blob/main/misc/rydberg_array_scattering/dipole_matrix_elements_arc.py" target="_blank" rel="noopener"><code>rydberg_array_scattering/dipole_matrix_elements_arc.py</code></a> &mdash; Rb87 5P3/2&rarr;nS1/2 reduced dipole matrix elements via ARC</li>
+    </ul>
+  </section>
+
+  <footer>
+    Released under the MIT License. Back to the
+    <a href="../index.html">full project list</a>, or the
+    <a href="https://github.com/yinlium/quantum#readme" target="_blank" rel="noopener">repository README</a>.
+  </footer>
+</div>
+</body>
+</html>

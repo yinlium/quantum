@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Collective-Dephasing-Induced Multiatom Entanglement — Yin Li</title>
+<meta name="description" content="Interaction-induced dephasing purifies a multi-excitation spin wave into an entangled single-excitation Dicke state — Phys. Rev. A 106, L051701 (2022).">
+<link rel="stylesheet" href="../assets/project.css">
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../index.html">&larr; Back to all projects</a>
+
+  <header class="proj-hero">
+    <span class="cite">Phys. Rev. A 106, L051701 (2022)</span>
+    <h1>Dynamics of Collective-Dephasing-Induced Multiatom Entanglement</h1>
+    <p class="subtitle">Y. Li, Y. Mei, H. Nguyen, P. R. Berman, A. Kuzmich</p>
+    <div class="proj-links">
+      <a href="https://github.com/yinlium/quantum/tree/main/collective_dephasing_entanglement" target="_blank" rel="noopener">Code on GitHub &rarr;</a>
+      <a href="https://doi.org/10.1103/PhysRevA.106.L051701" target="_blank" rel="noopener">Read the paper &rarr;</a>
+    </div>
+    <p class="private-note">The same physics is also reproduced gate-level in Google Cirq, in a private companion repo.</p>
+  </header>
+
+  <section>
+    <h2>The physics</h2>
+    <p>A partial collective Rabi pulse leaves the atomic ensemble in a superposition over different total
+      excitation numbers m, not a single, definite excitation &mdash; a Poissonian-weighted mixture of symmetric
+      Dicke states |D<sub>m</sub>&#10217;. That multi-excitation admixture is a problem: the light retrieved
+      from it isn&rsquo;t single-photon-like, so its two-photon coincidence rate is nonzero.</p>
+    <p>Interaction-induced (van der Waals) dephasing among Rydberg-excited atom pairs turns out to fix this,
+      rather than simply destroying the state. The dephasing is <em>collective</em> in a specific sense: it damps
+      coherence between different excitation-number sectors as a Gaussian in their separation,</p>
+    <div class="eq">&rho;<sub>mm&prime;</sub> &rarr; &rho;<sub>mm&prime;</sub> &middot; exp[&minus;&gamma;<sub>c</sub>&tau;(m&minus;m&prime;)&sup2;/2]</div>
+    <p>while leaving each fixed-m sector internally untouched. Since the m=1 sector <em>is</em> a maximally
+      entangled W-state across the N atoms, damping its coherence with every other m sector &mdash; without
+      damping the W-state itself &mdash; progressively purifies the mixture toward that single, genuinely
+      multiparticle-entangled state as the storage time T<sub>s</sub> grows. The experimental signature is the
+      retrieved light&rsquo;s second-order correlation falling toward the single-photon limit,</p>
+    <div class="eq">g&#8317;&#178;&#8318;(T<sub>s</sub>) &rarr; 0</div>
+    <p>and the entanglement itself is confirmed independently with a P<sub>1</sub>&ndash;P<sub>2</sub> witness:
+      the joint statistics of one-photon vs. two-photon detection events are compared against the boundary a
+      collection of classical, mutually independent emitters could produce &mdash; the measured points sit
+      outside that boundary.</p>
+  </section>
+
+  <section>
+    <h2>Results</h2>
+
+    <figure>
+      <img src="../assets/full/collective_dephasing_entanglement/g2_storage_time_fit.jpg" alt="g2(Ts) fit to real data, cloud size extraction">
+      <figcaption><span class="fname">g2_storage_time_fit.py</span> &mdash; the paper&rsquo;s central result: the
+        van der Waals dephasing Monte Carlo model fit by least squares to real g&#8317;&#178;&#8318;(T<sub>s</sub>)
+        data at n=40 and n=50 (100&nbsp;ns retrieval pulse), extracting the atomic cloud&rsquo;s longitudinal
+        size as the one free fit parameter. The n=50-with-lattice data is overlaid unfit, for comparison.</figcaption>
+    </figure>
+
+    <figure>
+      <img src="../assets/full/collective_dephasing_entanglement/dephasing_dynamics_and_truncation.jpg" alt="Fock-truncation convergence and full g2 dynamics">
+      <figcaption><span class="fname">dephasing_dynamics_and_truncation.py</span> &mdash; supplementary checks:
+        convergence of the truncated-Fock-state calculation as more excitation-number sectors are included, the
+        full g&#8317;&#178;&#8318;(T<sub>s</sub>) dynamics from nanoseconds to milliseconds at several principal
+        quantum numbers with blockade on/off, and g&#8317;&#178;&#8318; at fixed T<sub>s</sub>=1&nbsp;&micro;s vs.
+        n, overlaid with the n=40/50 data points.</figcaption>
+    </figure>
+
+    <figure>
+      <img src="../assets/full/collective_dephasing_entanglement/calibration_fits.jpg" alt="Rabi flopping, excitation spectrum, and EIT calibration fits">
+      <figcaption><span class="fname">calibration_fits.py</span> &mdash; three auxiliary experimental
+        calibrations behind the headline numbers: a two-photon Rabi-flopping fit that pins down the atom number
+        (N=273), an excitation-spectrum sinc&#178; fit, and an electromagnetically-induced-transparency (EIT)
+        transmission fit used to calibrate the optical depth.</figcaption>
+    </figure>
+
+    <figure>
+      <img src="../assets/full/collective_dephasing_entanglement/entanglement_witness_p1_p2.jpg" alt="P1-P2 entanglement witness boundary vs measured coincidences">
+      <figcaption><span class="fname">entanglement_witness_p1_p2.py</span> &mdash; the multiatom entanglement
+        witness itself: Monte Carlo P<sub>1</sub>&ndash;P<sub>2</sub> boundary curves for M=2 and M=3
+        <em>independent</em> (unentangled) emitters, against the measured (P<sub>1</sub>,P<sub>2</sub>) points at
+        two different Rabi frequencies, converted through the independently calibrated detection efficiency
+        &eta;=0.074. The data sit outside the classical boundary.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Code</h2>
+    <ul class="script-list">
+      <li><a href="https://github.com/yinlium/quantum/blob/main/collective_dephasing_entanglement/g2_storage_time_fit.py" target="_blank" rel="noopener"><code>g2_storage_time_fit.py</code></a> &mdash; van der Waals dephasing MC fit to real g&#8317;&#178;&#8318;(T<sub>s</sub>) data; cloud-size extraction</li>
+      <li><a href="https://github.com/yinlium/quantum/blob/main/collective_dephasing_entanglement/dephasing_dynamics_and_truncation.py" target="_blank" rel="noopener"><code>dephasing_dynamics_and_truncation.py</code></a> &mdash; Fock-truncation convergence and full g&#8317;&#178;&#8318;(T<sub>s</sub>) dynamics vs. n</li>
+      <li><a href="https://github.com/yinlium/quantum/blob/main/collective_dephasing_entanglement/calibration_fits.py" target="_blank" rel="noopener"><code>calibration_fits.py</code></a> &mdash; Rabi-flopping, excitation-spectrum, and EIT calibration fits</li>
+      <li><a href="https://github.com/yinlium/quantum/blob/main/collective_dephasing_entanglement/entanglement_witness_p1_p2.py" target="_blank" rel="noopener"><code>entanglement_witness_p1_p2.py</code></a> &mdash; Monte Carlo P<sub>1</sub>&ndash;P<sub>2</sub> entanglement-witness boundary vs. measured coincidences</li>
+    </ul>
+  </section>
+
+  <footer>
+    Released under the MIT License. Back to the
+    <a href="../index.html">full project list</a>, or the
+    <a href="https://github.com/yinlium/quantum#readme" target="_blank" rel="noopener">repository README</a>.
+  </footer>
+</div>
+</body>
+</html>
